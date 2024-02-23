@@ -102,7 +102,7 @@ Example json content:
 
 Tip: you can create a backup of your current structure calling the api-url with  
 `{url to your nexus instance}/service/rest/v1/repositorySettings`.  
-You're able to use it as loaded json variable to reconstruct your json repos, groups and blobstores ... or just for cheating on the structure ;-)
+You're able to use it as loaded json variable to restore your repos, groups and blobstores structure ... or just for cheating on the structure ;-)
 
 ## How does it work?
 
