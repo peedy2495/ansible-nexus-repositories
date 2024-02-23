@@ -7,7 +7,7 @@ This external role is to comply project related dependencies of proxy cached con
 - You have to load json content defining your required repositories into the variable `nexus_repos`. 
 
 For example loading the content from a json file:
-```
+```yaml
 - name: import repositories
   set_fact:
     nexus_repos: "{{ lookup('file','vars/my_nexus_repos.json') | from_json }}"
