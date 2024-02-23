@@ -1,0 +1,93 @@
+- hosts: all
+  gather_facts: true
+  vars:
+    ansible_become: no
+    ansible_ssh_common_args: "-o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no"
+    test_repo: "testing"
+
+  tasks:
+    - name: import credentials
+      include_vars: vars/creds.yml
+      no_log: true
+
+    - name: import repositories
+      set_fact:
+        nexus_repos: "{{ lookup('file','vars/nexus_repos.json') | from_json }}"
+
+    - name: Nexus -get current repositories
+      uri:
+        url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories"
+        force_basic_auth: yes
+        user: "{{ nexusPwd }}"
+        password: "{{ nexusPwd }}"
+        return_content: true
+      register: repos
+
+    - name: Nexus - get current blobstores
+      uri:
+        url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/blobstores"
+        force_basic_auth: yes
+        user: "{{ nexusPwd }}"
+        password: "{{ nexusPwd }}"
+        return_content: true
+      register: blobstores
+
+    - name: Nexus - create missing blobstores
+      uri:
+        url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/blobstores/file"
+        force_basic_auth: yes
+        user: "{{ nexusPwd }}"
+        password: "{{ nexusPwd }}"
+        method: POST
+        headers:
+          Content-Type: "application/json"
+        body: |
+          {
+            "path": "{{ item.storage.blobStoreName }}",
+            "name": "{{ item.storage.blobStoreName }}"
+          }
+        body_format: json
+      register: blob_creation_result
+      loop: "{{ nexus_repos }}"
+      loop_control:
+        label: "{{ item.name }}"
+      failed_when: blob_creation_result.status not in [204]
+      changed_when: blob_creation_result.status in [204]
+      when: "item.storage.blobStoreName not in blobstores.json | map(attribute='name') | list"
+
+    - name: Nexus - create missing repositories
+      uri:
+        url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format }}/{{ item.type }}"
+        force_basic_auth: yes
+        user: "{{ nexusPwd }}"
+        password: "{{ nexusPwd }}"
+        method: POST
+        headers:
+           Content-Type: "application/json"
+        body: "{{ item }}"
+        body_format: json
+      register: repo_creation_result
+      loop: "{{ nexus_repos }}"
+      loop_control:
+        label: "   {{ item.format }}[{{ item.type }}]: {{ item.name }}"
+      failed_when: repo_creation_result.status not in [201]
+      changed_when: repo_creation_result.status in [201]
+      when: "item.name not in repos.json | map(attribute='name') | list"
+
+    - name: Nexus - update repositoy settings
+      uri:
+        url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format | replace('maven2', 'maven') }}/{{ item.type }}/{{item.name}}"
+        force_basic_auth: yes
+        user: "{{ nexusPwd }}"
+        password: "{{ nexusPwd }}"
+        method: PUT
+        headers:
+           Content-Type: "application/json"
+        body: "{{ item }}"
+        body_format: json
+      register: repo_creation_result
+      loop: "{{ nexus_repos }}"
+      loop_control:
+        label: "   {{ item.format }}[{{ item.type }}]: {{ item.name }}"
+      failed_when: repo_creation_result.status not in [204]
+      changed_when: repo_creation_result.status in [204]

@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Peedy2495
+  description: Create and update nexus repos and groups
+  license: MIT
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+  galaxy_tags:
+    - system
+    - configuration
+    - devops
