@@ -14,7 +14,7 @@
     user: "{{ nexusPwd }}"
     password: "{{ nexusPwd }}"
     return_content: true
- register: blobstores
+  register: blobstores
 
 - name: Nexus - create missing blobstores
   ansible.builtin.uri:
