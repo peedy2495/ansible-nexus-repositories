@@ -1,3 +1,6 @@
+- debug:
+    var: nexusPwd
+
 - name: Nexus -get current repositories
   ansible.builtin.uri:
     url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories"
