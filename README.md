@@ -16,7 +16,7 @@ For example loading the content from a json file:
 Refer your nexus-instance in Setup/System/API for reqired json structs.
 
 Example json content:
-```
+```json
 [
   {
     "name": "ubuntu-jammy-ppa-golang-backports",
