@@ -5,7 +5,7 @@
   ansible.builtin.uri:
     url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories"
     force_basic_auth: yes
-    user: "{{ nexusPwd }}"
+    user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
     return_content: true
   register: repos
@@ -14,7 +14,7 @@
   ansible.builtin.uri:
     url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/blobstores"
     force_basic_auth: yes
-    user: "{{ nexusPwd }}"
+    user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
     return_content: true
   register: blobstores
@@ -23,7 +23,7 @@
   ansible.builtin.uri:
     url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/blobstores/file"
     force_basic_auth: yes
-    user: "{{ nexusPwd }}"
+    user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
     method: POST
     headers:
@@ -46,7 +46,7 @@
   ansible.builtin.uri:
     url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format }}/{{ item.type }}"
     force_basic_auth: yes
-    user: "{{ nexusPwd }}"
+    user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
     method: POST
     headers:
@@ -65,7 +65,7 @@
   ansible.builtin.uri:
     url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format | replace('maven2', 'maven') }}/{{ item.type }}/{{item.name}}"
     force_basic_auth: yes
-    user: "{{ nexusPwd }}"
+    user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
     method: PUT
     headers:
