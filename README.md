@@ -4,7 +4,7 @@ This external role is to comply project related dependencies of proxy cached con
 ## Prerequisites
 
 - You have to load the user's password into the variable `nexusPwd`
-- You have to load json content defining your required repositories into the variable `nexus_repos`. 
+- You have to load json content defining your required repositories into the variable `nexusRepos`. 
 
 For example loading the content from a json file:
 ```yaml
