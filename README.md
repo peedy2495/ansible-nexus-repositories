@@ -17,87 +17,90 @@ Refer your nexus-instance in Setup/System/API for reqired json structs.
 
 Example json content:
 ```
-[ {
-  "name" : "ubuntu-jammy-ppa-golang-backports",
-  "url" : "http://192.168.123.180:8081/repository/ubuntu-jammy-ppa-golang-backports",
-  "online" : true,
-  "storage" : {
-    "blobStoreName" : "ubuntu-jammy",
-    "strictContentTypeValidation" : true,
-    "writePolicy" : "ALLOW"
-  },
-  "cleanup" : {
-    "policyNames" : [ "18-weeks-usage" ]
-  },
-  "apt" : {
-    "distribution" : "jammy",
-    "flat" : false
-  },
-  "proxy" : {
-    "remoteUrl" : "https://ppa.launchpadcontent.net/longsleep/golang-backports/ubuntu/",
-    "contentMaxAge" : 1440,
-    "metadataMaxAge" : 1440
-  },
-  "negativeCache" : {
-    "enabled" : true,
-    "timeToLive" : 1440
-  },
-  "httpClient" : {
-    "blocked" : false,
-    "autoBlock" : true,
-    "connection" : {
-      "retries" : null,
-      "userAgentSuffix" : null,
-      "timeout" : null,
-      "enableCircularRedirects" : false,
-      "enableCookies" : false,
-      "useTrustStore" : false
+[
+  {
+    "name": "ubuntu-jammy-ppa-golang-backports",
+    "url": "http://192.168.123.180:8081/repository/ubuntu-jammy-ppa-golang-backports",
+    "online": true,
+    "storage": {
+      "blobStoreName": "ubuntu-jammy",
+      "strictContentTypeValidation": true,
+      "writePolicy": "ALLOW"
     },
-    "authentication" : null
-  },
-  "routingRuleName" : null,
-  "format" : "apt",
-  "type" : "proxy"
-}, {
-  "name" : "nuget.org-proxy",
-  "url" : "http://192.168.123.180:8081/repository/nuget.org-proxy",
-  "online" : true,
-  "storage" : {
-    "blobStoreName" : "default",
-    "strictContentTypeValidation" : true,
-    "writePolicy" : "ALLOW"
-  },
-  "cleanup" : null,
-  "proxy" : {
-    "remoteUrl" : "https://api.nuget.org/v3/index.json",
-    "contentMaxAge" : 1440,
-    "metadataMaxAge" : 1440
-  },
-  "negativeCache" : {
-    "enabled" : true,
-    "timeToLive" : 1440
-  },
-  "httpClient" : {
-    "blocked" : false,
-    "autoBlock" : false,
-    "connection" : {
-      "retries" : null,
-      "userAgentSuffix" : null,
-      "timeout" : null,
-      "enableCircularRedirects" : false,
-      "enableCookies" : false,
-      "useTrustStore" : false
+    "cleanup": {
+      "policyNames": ["18-weeks-usage"]
     },
-    "authentication" : null
+    "apt": {
+      "distribution": "jammy",
+      "flat": false
+    },
+    "proxy": {
+      "remoteUrl": "https://ppa.launchpadcontent.net/longsleep/golang-backports/ubuntu/",
+      "contentMaxAge": 1440,
+      "metadataMaxAge": 1440
+    },
+    "negativeCache": {
+      "enabled": true,
+      "timeToLive": 1440
+    },
+    "httpClient": {
+      "blocked": false,
+      "autoBlock": true,
+      "connection": {
+        "retries": null,
+        "userAgentSuffix": null,
+        "timeout": null,
+        "enableCircularRedirects": false,
+        "enableCookies": false,
+        "useTrustStore": false
+      },
+      "authentication": null
+    },
+    "routingRuleName": null,
+    "format": "apt",
+    "type": "proxy"
   },
-  "routingRuleName" : null,
-  "nugetProxy" : {
-    "queryCacheItemMaxAge" : 3600,
-    "nugetVersion" : "V3"
-  },
-  "format" : "nuget",
-  "type" : "proxy"
-} ]
+  {
+    "name": "nuget.org-proxy",
+    "url": "http://192.168.123.180:8081/repository/nuget.org-proxy",
+    "online": true,
+    "storage": {
+      "blobStoreName": "default",
+      "strictContentTypeValidation": true,
+      "writePolicy": "ALLOW"
+    },
+    "cleanup": null,
+    "proxy": {
+      "remoteUrl": "https://api.nuget.org/v3/index.json",
+      "contentMaxAge": 1440,
+      "metadataMaxAge": 1440
+    },
+    "negativeCache": {
+      "enabled": true,
+      "timeToLive": 1440
+    },
+    "httpClient": {
+      "blocked": false,
+      "autoBlock": false,
+      "connection": {
+        "retries": null,
+        "userAgentSuffix": null,
+        "timeout": null,
+        "enableCircularRedirects": false,
+        "enableCookies": false,
+        "useTrustStore": false
+      },
+      "authentication": null
+    },
+    "routingRuleName": null,
+    "nugetProxy": {
+      "queryCacheItemMaxAge": 3600,
+      "nugetVersion": "V3"
+    },
+    "format": "nuget",
+    "type": "proxy"
+  }
+]
 ```
 
 Tip: you can create a backup of your current structure calling the api-url with  
