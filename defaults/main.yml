@@ -1,4 +1,4 @@
-nexus: 192.168.123.180  #ip or hostname
-nexusProto: http
-nexusPort: 8081
-nexusUser: admin
+#nexus: 192.168.123.180  #ip or hostname
+#nexusProto: http
+#nexusPort: 8081
+#nexusUser: admin
