@@ -1,6 +1,6 @@
 - name: Nexus -get current repositories
   ansible.builtin.uri:
-    url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories"
+    url: "{{ nexusProto }}://{{ nexusIP }}:{{ nexusPort }}/service/rest/v1/repositories"
     force_basic_auth: yes
     user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
@@ -9,7 +9,7 @@
 
 - name: Nexus - get current blobstores
   ansible.builtin.uri:
-    url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/blobstores"
+    url: "{{ nexusProto }}://{{ nexusIP }}:{{ nexusPort }}/service/rest/v1/blobstores"
     force_basic_auth: yes
     user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
@@ -18,7 +18,7 @@
 
 - name: Nexus - create missing blobstores
   ansible.builtin.uri:
-    url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/blobstores/file"
+    url: "{{ nexusProto }}://{{ nexusIP }}:{{ nexusPort }}/service/rest/v1/blobstores/file"
     force_basic_auth: yes
     user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
@@ -41,7 +41,7 @@
 
 - name: Nexus - create missing repositories
   ansible.builtin.uri:
-    url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format }}/{{ item.type }}"
+    url: "{{ nexusProto }}://{{ nexusIP }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format }}/{{ item.type }}"
     force_basic_auth: yes
     user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"
@@ -60,7 +60,7 @@
 
 - name: Nexus - update repositoy settings
   ansible.builtin.uri:
-    url: "{{ nexusProto }}://{{ nexus }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format | replace('maven2', 'maven') }}/{{ item.type }}/{{item.name}}"
+    url: "{{ nexusProto }}://{{ nexusIP }}:{{ nexusPort }}/service/rest/v1/repositories/{{ item.format | replace('maven2', 'maven') }}/{{ item.type }}/{{item.name}}"
     force_basic_auth: yes
     user: "{{ nexusUser }}"
     password: "{{ nexusPwd }}"

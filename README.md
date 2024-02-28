@@ -9,7 +9,7 @@ This external role is to comply project related dependencies of proxy cached con
 For example loading the content from a json file:
 ```yaml
 - name: import repositories
-  set_fact:
+  ansible.builtin.set_fact:
     nexus_repos: "{{ lookup('file','vars/my_nexus_repos.json') | from_json }}"
 ```
 
